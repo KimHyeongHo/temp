@@ -3,7 +3,7 @@ import re
 
 def cleanCardData(inputFile, outputFile):
     # CSV 파일 읽기
-    df = pd.read_csv(inputFile, encoding='utf-8-sig')
+    df = pd.read_csv(inputFile, encoding="utf-8-sig")
 
     # 1. 연회비 정제 함수
     def parseAnnualFee(feeStr):
@@ -18,7 +18,7 @@ def cleanCardData(inputFile, outputFile):
         parts = feeStr.split('/')
         for part in parts:
             # 숫자만 추출 (예: 20,000 -> 20000)
-            amountMatch = re.search(r'([\d,]+)', part)
+            amountMatch = re.search(r"([\d,]+)", part)
             amount = 0
             if amountMatch:
                 amount = int(amountMatch.group(1).replace(',', ''))
@@ -61,7 +61,7 @@ def cleanCardData(inputFile, outputFile):
     dfFinal = df[cols]
 
     # 결과 저장
-    dfFinal.to_csv(outputFile, index=False, encoding='utf-8-sig')
+    dfFinal.to_csv(outputFile, index=False, encoding="utf-8-sig")
     print(f"전처리 완료! 저장된 파일: {outputFile}")
     
     # 상위 5개 데이터 확인용 출력

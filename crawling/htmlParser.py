@@ -32,6 +32,8 @@ def parseHtmlToCsv(htmlFile, csvFile):
         cardCorpTag = card.find("span", class_="card_corp")
         annualFeeTag = card.find("p", class_="in_for")
         performanceTag = card.find("p", class_="l_mth")
+        cardImageTag = card.find("img") # Find the image tag
+        cardImageUrl = cardImageTag["src"] if cardImageTag and "src" in cardImageTag.attrs else ""
 
         # Extract main benefits from the 'sale' div
         benefitsDiv = card.find("div", class_="sale")
@@ -47,7 +49,8 @@ def parseHtmlToCsv(htmlFile, csvFile):
             "카드사": cardCorpTag.get_text(strip=True) if cardCorpTag else "",
             "연회비": annualFeeTag.get_text(strip=True, separator=" / ") if annualFeeTag else "",
             "전월실적": performanceTag.get_text(strip=True, separator=" ") if performanceTag else "",
-            "주요혜택": " | ".join(benefits)
+            "주요혜택": " | ".join(benefits),
+            "카드이미지": cardImageUrl # Add card image URL
         }
         cardDataList.append(cardData)
 
