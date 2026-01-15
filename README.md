@@ -27,4 +27,4 @@ docker exec -it backend python manage.py load_cards
 docker exec -it backend python manage.py update_cards
 # 카테고리랑 연결해줌
 docker exec -it backend python manage.py link_categories
-# temp
+# temp temp
