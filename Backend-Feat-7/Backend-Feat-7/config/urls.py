@@ -1,0 +1,26 @@
+"""
+URL configuration for config project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/6.0/topics/http/urls/
+"""
+
+from django.contrib import admin
+from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    
+    # [변경] 모든 API 경로에 v1 버전 적용
+    path('api/v1/users/', include('users.urls')),      # 예: /api/v1/users/login/
+    path('api/v1/expense/', include('expense.urls')),  # 예: /api/v1/expense/analysis/
+    path('api/v1/chat/', include('chat.urls')),        # 예: /api/v1/chat/make_room/
+    path('api/v1/cards/', include('cards.urls')),      # 예: /api/v1/cards/recommend/
+    path('api/v1/category/', include('category.urls')),# 예: /api/v1/category/categories/
+
+    # [참고] 문서 도구 경로도 v1으로 맞추면 더 깔끔합니다.
+    path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/v1/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+]
